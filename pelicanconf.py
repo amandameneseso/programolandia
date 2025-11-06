@@ -1,5 +1,5 @@
 AUTHOR = 'Amanda Meneses'
-SITENAME = 'Programolândia'
+SITENAME = 'The Code Times'
 SITEURL = ''
 PATH = "content"
 
