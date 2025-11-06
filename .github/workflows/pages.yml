@@ -1,19 +1,43 @@
-name: Deploy to GitHub Pages
+name: Deploy Pelican Site to GitHub Pages
 
 on:
   push:
     branches:
-      - main
+      - main # Mude para 'master' se for o seu ramo principal
+
+# Adiciona permissões para a Action poder escrever no ramo gh-pages
+permissions:
+  contents: write
 
 jobs:
-  build:
-
+  build-and-deploy:
     runs-on: ubuntu-latest
-
     steps:
-    - uses: actions/checkout@v2
-      with:
-        submodules: true
-    - uses: nelsonjchen/gh-pages-pelican-action@0.1.5
-      env:
-        GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+      # 1. Descarrega o seu código E o seu tema (submódulo)
+      - name: Check out repo
+        uses: actions/checkout@v3
+        with:
+          submodules: true  # A correção para o seu tema
+
+      # 2. Configura o Python
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10' # Pode ajustar se precisar
+          cache: 'pip'
+
+      # 3. Instala o Pelican e o Markdown (do seu requirements.txt)
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      # 4. GERA O SITE (O PASSO MAIS IMPORTANTE)
+      #    Usa o publishconf.py para definir o SITEURL correto
+      - name: Build Pelican site
+        run: pelican content -s publishconf.py
+
+      # 5. Publica a pasta 'output/' no ramo 'gh-pages'
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./output
