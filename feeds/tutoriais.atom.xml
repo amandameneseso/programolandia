@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Programolândia - Tutoriais</title><link href="https://amandameneseso.github.io/programolandia/" rel="alternate"/><link href="https://amandameneseso.github.io/programolandia/feeds/tutoriais.atom.xml" rel="self"/><id>https://amandameneseso.github.io/programolandia/</id><updated>2025-11-04T00:00:00-03:00</updated><entry><title>Como criar um blog com Pelican</title><link href="https://amandameneseso.github.io/programolandia/como-criar-um-blog-com-pelican.html" rel="alternate"/><published>2025-11-04T00:00:00-03:00</published><updated>2025-11-04T00:00:00-03:00</updated><author><name>Amanda Meneses</name></author><id>tag:amandameneseso.github.io,2025-11-04:/programolandia/como-criar-um-blog-com-pelican.html</id><summary type="html">&lt;p&gt;Olá, pessoal!&lt;/p&gt;
+&lt;p&gt;Como estudante de &lt;strong&gt;Análise e Desenvolvimento de Sistemas&lt;/strong&gt;, estou sempre procurando ferramentas que me ajudem a documentar meus estudos e a criar projetos de forma eficiente. Recentemente, descobri o &lt;strong&gt;Pelican.&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Ele é um Gerador de Sites Estáticos (SSG) construído em Python. Seu paradigma operacional difere fundamentalmente de CMSs …&lt;/p&gt;</summary><content type="html">&lt;p&gt;Olá, pessoal!&lt;/p&gt;
+&lt;p&gt;Como estudante de &lt;strong&gt;Análise e Desenvolvimento de Sistemas&lt;/strong&gt;, estou sempre procurando ferramentas que me ajudem a documentar meus estudos e a criar projetos de forma eficiente. Recentemente, descobri o &lt;strong&gt;Pelican.&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Ele é um Gerador de Sites Estáticos (SSG) construído em Python. Seu paradigma operacional difere fundamentalmente de CMSs dinâmicos como o WordPress, que processam lógica no servidor e acessam bancos de dados a cada requisição HTTP. O Pelican, por sua vez, pré-renderiza todo o site em arquivos estáticos (HTML, CSS, JS) durante um processo de &lt;em&gt;build&lt;/em&gt; (compilação).&lt;/p&gt;
+&lt;p&gt;Isso resulta em uma arquitetura de alta performance e baixa latência, pois o servidor apenas entrega arquivos estáticos. A segurança também é significativamente reforçada, já que a superfície de ataque do lado do servidor é eliminada. Essa abordagem resulta em &lt;strong&gt;melhor desempenho&lt;/strong&gt;, &lt;strong&gt;maior segurança&lt;/strong&gt; e &lt;strong&gt;facilidade de implantação&lt;/strong&gt; em qualquer ambiente de hospedagem estática.&lt;/p&gt;
+&lt;p&gt;Neste post, vou mostrar o passo a passo de como criei este blog. Vamos lá!&lt;/p&gt;
+&lt;h3&gt;&lt;strong&gt;1. Crie uma pasta para o projeto&lt;/strong&gt;&lt;/h3&gt;
+&lt;p&gt;Abra o terminal e digite:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;mkdir&lt;span class="w"&gt; &lt;/span&gt;meu-blog
+&lt;span class="nb"&gt;cd&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;meu-blog
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Ou apenas crie uma pasta para o projeto manualmente.&lt;/p&gt;
+&lt;h3&gt;&lt;strong&gt;2. O que você precisa ter instalado&lt;/strong&gt;&lt;/h3&gt;
+&lt;p&gt;A primeira coisa que você precisa ter é o &lt;strong&gt;Python&lt;/strong&gt; instalado no seu computador. Com ele instalado, podemos usar o &lt;code&gt;pip&lt;/code&gt; (o gerenciador de pacotes do Python) para instalar o Pelican. Abra a pasta do projeto no VS Code e abra o terminal (&lt;code&gt;Ctrl +&lt;/code&gt;  ou &lt;code&gt;Ctrl + Shift + '&lt;/code&gt;).&lt;/p&gt;
+&lt;p&gt;Você pode verificar com:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;python&lt;span class="w"&gt; &lt;/span&gt;--version
+pip&lt;span class="w"&gt; &lt;/span&gt;--version
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Se aparecer algo como &lt;code&gt;Python 3.x.x&lt;/code&gt;, está tudo certo. Se não estiver instalado, &lt;a href="https://www.python.org/downloads/"&gt;baixe aqui&lt;/a&gt; e depois volte para o terminal.&lt;/p&gt;
+&lt;h3&gt;&lt;strong&gt;3. Crie um ambiente virtual&lt;/strong&gt;&lt;/h3&gt;
+&lt;p&gt;Isso isola o projeto e evita conflitos de bibliotecas. Ainda no terminal, dentro da sua pasta do projeto:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;python&lt;span class="w"&gt; &lt;/span&gt;-m&lt;span class="w"&gt; &lt;/span&gt;venv&lt;span class="w"&gt; &lt;/span&gt;venv
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Isso cria uma pasta chamada &lt;strong&gt;venv&lt;/strong&gt; que vai guardar as bibliotecas do projeto. Agora, ative o ambiente:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;venv&lt;span class="se"&gt;\S&lt;/span&gt;cripts&lt;span class="se"&gt;\a&lt;/span&gt;ctivate
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;O nome &lt;code&gt;(venv)&lt;/code&gt; aparecerá no início da linha do terminal.&lt;/p&gt;
+&lt;h3&gt;&lt;strong&gt;4. Instalar o Pelican&lt;/strong&gt;&lt;/h3&gt;
+&lt;p&gt;Se tudo estiver certo, instale o Pelican e o Markdown. Com o ambiente ativo, digite:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;pip&lt;span class="w"&gt; &lt;/span&gt;install&lt;span class="w"&gt; &lt;/span&gt;pelican&lt;span class="w"&gt; &lt;/span&gt;markdown
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Isso instala o &lt;strong&gt;Pelican&lt;/strong&gt; e suporte a &lt;strong&gt;Markdown&lt;/strong&gt; (linguagem pra escrever as páginas). Você pode confirmar a instalação com:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;pelican&lt;span class="w"&gt; &lt;/span&gt;--version
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;h3&gt;&lt;strong&gt;5. Criar a estrutura inicial do site&lt;/strong&gt;&lt;/h3&gt;
+&lt;p&gt;Agora, dentro da pasta do projeto, rode:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;pelican-quickstart
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;O Pelican vai te fazer várias perguntas, como:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Where do you want to create your new web site? [.]&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;→ Caminho onde o site será criado (por padrão, o diretório atual). Apenas pressione Enter.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;What will be the title of this web site?&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;→ Título do site (aparece no topo e nos metadados).&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Who will be the author of this web site?&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;→ Nome do autor (usado nos artigos e no rodapé).&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;What will be the default language of this web site? [en]&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;→ Define o idioma padrão do conteúdo (ex: &lt;code&gt;pt&lt;/code&gt; para português).&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Do you want to specify a URL prefix? e.g., https://example.com (Y/n)&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;→ Permite configurar a URL base do site, caso já tenha domínio.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Do you want to enable article pagination? (Y/n)&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;→ Ativa a paginação automática (dividir artigos em várias páginas).&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;How many articles per page do you want? [10]&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;→ Define quantos artigos aparecem por página na listagem.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;What is your time zone? [Europe/Paris]&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;→ Define o fuso horário usado para as datas dos artigos. (Para o Brasil: &lt;code&gt;America/Sao_Paulo&lt;/code&gt;)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Do you want to generate a tasks.py/Makefile to automate generation and publishing? (Y/n)&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;→ Cria arquivos para automatizar tarefas como gerar, limpar e publicar o site. A opção recomendada é responder sim.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Do you want to upload your website using FTP? (y/N)&lt;/strong&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Do you want to upload your website using SSH? (y/N)&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Do you want to upload your website using Dropbox? (y/N)&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Do you want to upload your website using S3? (y/N)&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Do you want to upload your website using Rackspace Cloud Files? (y/N)&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Do you want to upload your website using GitHub Pages? (y/N)&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;→ Se for hospedar no GitHub Pages, responda “y” apenas para essa pergunta.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Is this your personal page (username.github.io)? (y/N)&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;→ Pergunta se o repositório será o da página pessoal ou de projeto. Responda “n”, assim o Pelican configurará o deploy para um &lt;strong&gt;repositório de projeto&lt;/strong&gt;.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Depois que você responde tudo, o Pelican cria automaticamente uma pasta com estrutura padrão:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;meu-site/
+│
+├──&lt;span class="w"&gt; &lt;/span&gt;content/
+│&lt;span class="w"&gt;   &lt;/span&gt;└──&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;seus&lt;span class="w"&gt; &lt;/span&gt;arquivos&lt;span class="w"&gt; &lt;/span&gt;Markdown&lt;span class="o"&gt;)&lt;/span&gt;
+│
+├──&lt;span class="w"&gt; &lt;/span&gt;output/
+│&lt;span class="w"&gt;   &lt;/span&gt;└──&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;será&lt;span class="w"&gt; &lt;/span&gt;criado&lt;span class="w"&gt; &lt;/span&gt;automaticamente&lt;span class="w"&gt; &lt;/span&gt;com&lt;span class="w"&gt; &lt;/span&gt;o&lt;span class="w"&gt; &lt;/span&gt;site&lt;span class="w"&gt; &lt;/span&gt;gerado&lt;span class="o"&gt;)&lt;/span&gt;
+│
+├──&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;[&lt;/span&gt;pelicanconf.py&lt;span class="o"&gt;](&lt;/span&gt;http://pelicanconf.py/&lt;span class="o"&gt;)&lt;/span&gt;
+├──&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;[&lt;/span&gt;publishconf.py&lt;span class="o"&gt;](&lt;/span&gt;http://publishconf.py/&lt;span class="o"&gt;)&lt;/span&gt;
+└──&lt;span class="w"&gt; &lt;/span&gt;Makefile
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;h3&gt;&lt;strong&gt;6. Testar o site localmente&lt;/strong&gt;&lt;/h3&gt;
+&lt;p&gt;No terminal, dentro do diretório do projeto, você pode gerar o site com:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;pelican&lt;span class="w"&gt; &lt;/span&gt;content
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Isso cria ou atualiza a pasta &lt;code&gt;output/&lt;/code&gt; com os arquivos HTML gerados. Para visualizar localmente, você pode usar:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;pelican&lt;span class="w"&gt; &lt;/span&gt;--listen
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Agora abra no navegador no link que aparecer.&lt;/p&gt;
+&lt;h3&gt;&lt;strong&gt;7. Escrevendo o conteúdo&lt;/strong&gt;&lt;/h3&gt;
+&lt;p&gt;Dentro de &lt;code&gt;content/&lt;/code&gt; você pode criar &lt;strong&gt;páginas&lt;/strong&gt; (pages) ou &lt;strong&gt;artigos/posts&lt;/strong&gt; (articles). Um arquivo Markdown (.md) de exemplo ficaria assim:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;Title: Meu Primeiro Artigo
+Date: 2025-11-04
+Category: Geral
+Tags: pelican, exemplo
+Author: Seu Nome
+
+Olá! 
+Esse é o meu primeiro artigo no blog feito com &lt;span class="gs"&gt;**Pelican**&lt;/span&gt;. É muito fácil escrever usando Markdown.
+
+&lt;span class="k"&gt;-&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;Você pode criar listas.
+&lt;span class="k"&gt;-&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;Adicionar &lt;span class="gs"&gt;**negrito**&lt;/span&gt; ou &lt;span class="ge"&gt;*itálico*&lt;/span&gt;.
+&lt;span class="k"&gt;-&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;E até mesmo blocos de código.
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;h3&gt;&lt;strong&gt;8. Customizar o tema&lt;/strong&gt;&lt;/h3&gt;
+&lt;p&gt;O tema padrão é bem simples. Você pode explorar outros temas aqui: &lt;a href="https://github.com/getpelican/pelican-themes"&gt;https://github.com/getpelican/pelican-themes&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Para usar um tema, clone o repositório para uma pasta dentro do projeto (por exemplo: &lt;code&gt;pelican-themes&lt;/code&gt;) e adicione no arquivo &lt;code&gt;pelicanconf.py&lt;/code&gt;:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="n"&gt;THEME&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;pelican-themes/nome-do-tema&amp;#39;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;E é isso! Com esses passos, você tem um blog rápido e seguro, pronto para ser customizado.&lt;/p&gt;</content><category term="Tutoriais"/><category term="pelican"/><category term="exemplo"/></entry></feed>
