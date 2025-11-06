@@ -1,7 +1,7 @@
 Title: Como criar um blog com Pelican
 Date: 2025-11-04
 Category: Tutoriais
-Tags: pelican, exemplo
+Tags: pelican, front-end
 Author: Amanda Meneses
 Slug: como-criar-um-blog-com-pelican
 
