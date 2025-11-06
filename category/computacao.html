@@ -1,0 +1,207 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  
+  <title>Programolândia - Computação</title>
+<link href="/theme/css/style.css" rel="stylesheet" type="text/css" media="screen" />
+<link href="/" type="application/atom+xml" rel="alternate" title="Programolândia ATOM Feed" />
+  
+  <!--[if IE]>
+  <style type="text/css"> 
+  .twoColFixRtHdr #mainContent { zoom: 1; }
+  </style>
+  <![endif]-->
+
+</head>
+
+<body>
+
+<div id="container">
+
+  <div id="header">
+  <h1><a href="/index.html">Programolândia</h1>
+  
+  </div><!-- end #header -->
+  
+  <div id="topMenu">
+  
+    <ul>
+    	<li><a href="/index.html">Home</a></li>
+        <li>&ndash;</li>
+        <li><a href="/archives.html">Archives</a></li>
+        
+    </ul>
+  
+  </div><!-- end #topMenu -->
+
+  <div id="sidebar">
+    <ul>
+	<li>
+	    <h3>Pages</h3>
+	    <ul>
+	    </ul>
+	</li>
+	<li>
+            <h3>Categories</h3>
+            <ul>
+		     <li class="active"><a href="/category/computacao.html">Computação</a></li>
+		     <li ><a href="/category/tutoriais.html">Tutoriais</a></li>
+	    </ul>
+	</li>
+        <li>
+                <h3>Social</h3>
+                <ul>
+                    <li><a href="https://github.com/amandameneseso">GitHub</a></li>
+                    <li><a href="https://www.linkedin.com/in/amanda-oliveira-de-meneses/">LinkedIn</a></li>
+                </ul>
+        </li><!-- /.social -->
+        <li>
+            <h3>Tags</h3>
+            <ul>
+                    <li><a href="/tag/pelican.html">pelican</a></li>
+                    <li><a href="/tag/exemplo.html">exemplo</a></li>
+                    <li><a href="/tag/matematica.html">matemática</a></li>
+                    <li><a href="/tag/computacao.html">computação</a></li>
+            </ul>
+        </li>
+    </ul>
+  </div><!-- end #sidebar -->
+
+  <div id="mainContent">
+  	
+ 
+        
+  	
+    <div class="blogItem">
+    
+      <h2><a href="/01-02-03-como-a-matematica-do-computador-funciona.html">0.1 + 0.2 = 0.3? Como a matemática do computador funciona</a></h2>
+      <h3>Mon 03 November 2025</h3>
+      
+      <h3><strong>A conta que não fecha</strong></h3>
+<p>Se você já se aventurou na programação, talvez tenha encontrado um resultado que desafia a lógica. Digite <code>0.1 + 0.2</code> no console do JavaScript ou Python e, em vez do esperado <code>0.3</code>, você verá algo como <code>0.30000000000000004</code>. Como uma máquina capaz de cálculos complexos pode errar uma conta tão básica?</p>
+<div class="highlight"><pre><span></span><code><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="mf">0.1</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mf">0.2</span><span class="p">);</span><span class="w"> </span><span class="c1">// 0.30000000000000004</span>
+</code></pre></div>
+
+<p>Essa aparente falha não é um bug, mas uma consequência fundamental de como os computadores representam números. Este artigo vai revelar os segredos por trás dessa matemática contraintuitiva, mostrando por que a precisão no mundo digital é uma ilusão cuidadosamente gerenciada.</p>
+<h3><strong>A ilusão da precisão decimal</strong></h3>
+<p>Nós, humanos, usamos o <strong>sistema decimal (base 10)</strong>. Já os computadores só entendem o <strong>sistema binário (base 2)</strong> — números feitos apenas de 0s e 1s.</p>
+<p>Isso cria um problema: <strong>nem todos os números decimais podem ser representados exatamente em binário</strong>.</p>
+<p>Por exemplo:</p>
+<table>
+<thead>
+<tr>
+<th>Número decimal</th>
+<th>Binário aproximado (IEEE 754)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0.5</td>
+<td>0.1</td>
+</tr>
+<tr>
+<td>0.25</td>
+<td>0.01</td>
+</tr>
+<tr>
+<td>0.1</td>
+<td>0.0001100110011001100110011... (dízima infinita)</td>
+</tr>
+<tr>
+<td>0.2</td>
+<td>0.0011001100110011001100110... (dízima infinita)</td>
+</tr>
+</tbody>
+</table>
+<p>Como o computador tem uma memória finita, ele não pode armazenar uma sequência infinita de dígitos. Em vez disso, ele "arredonda" o número, guardando uma aproximação extremamente próxima, mas não exata. Assim, quando o computador tenta armazenar <code>0.1</code>, ele <strong>corta</strong> a dízima e guarda uma <strong>aproximação</strong>. Em 64 bits (precisão dupla), <code>0.1</code> é armazenado como:</p>
+<div class="highlight"><pre><span></span><code><span class="mf">0.1000000000000000055511151231257827021181583404541015625</span>
+</code></pre></div>
+
+<p>e <code>0.2</code> como:</p>
+<div class="highlight"><pre><span></span><code><span class="mf">0.200000000000000011102230246251565404236316680908203125</span>
+</code></pre></div>
+
+<p>Quando somamos os dois, o resultado é <strong>0.3000000000000000444...</strong>, que aparece arredondado como <code>0.30000000000000004</code>. A soma <code>0.1 + 0.2</code> é, na verdade, a soma de duas aproximações, e a pequena imprecisão de cada uma se manifesta no resultado final.</p>
+<p>Isso acontece <strong>em todas as linguagens modernas</strong> (Python, JavaScript, C, Java etc.), porque todas seguem o mesmo padrão: <strong>IEEE 754</strong>.</p>
+<p>Esse padrão define que um número real (de ponto flutuante) é dividido em <strong>três partes</strong>:</p>
+<ol>
+<li><strong>Sinal</strong> → indica se o número é positivo ou negativo</li>
+<li><strong>Expoente</strong> → indica o tamanho (escala) do número</li>
+<li><strong>Mantissa</strong> → guarda os dígitos significativos</li>
+</ol>
+<p>Mais bits significam <strong>maior precisão</strong>, mas <strong>nenhum número decimal infinito pode ser representado exatamente</strong>.</p>
+<h3><strong>Erro não é bug: É uma consequência matemática</strong></h3>
+<p>Os pequenos desvios que vemos nos cálculos não são falhas inesperadas no código; são características inerentes e previsíveis da computação.</p>
+<p>Existem dois tipos principais de erros conceituais que surgem dessa limitação:</p>
+<ul>
+<li><strong>Erro de arredondamento:</strong> Ocorre devido à limitação de bits para representar números, como vimos no exemplo <code>0.1 + 0.2</code>. O computador é forçado a escolher o valor representável mais próximo.</li>
+<li><strong>Erro de truncamento:</strong> Acontece quando aproximamos um processo infinito com um número finito de passos. Por exemplo, o cálculo do seno de um ângulo (<code>sin(x)</code>) pode ser feito usando uma série matemática infinita (a série de Taylor). Como não dá pra calcular infinitos termos, escolhemos um número finito (por exemplo, 5 termos). Essa <strong>interrupção</strong> gera um pequeno <strong>erro de truncamento</strong>. Quanto mais termos da série são usados, mais preciso é o resultado. No entanto, usar um número excessivo de termos pode levar a um <code>OverflowError</code> se os valores intermediários se tornarem grandes demais para serem representados.</li>
+</ul>
+<h3><strong>O limite da visão: O Épsilon da Máquina</strong></h3>
+<p>Se a precisão do computador é finita, qual é o seu limite? A resposta está em um conceito chamado <strong>Épsilon da Máquina (ε)</strong>. De forma simples, ele é "o menor número que, somado a 1, o computador consegue diferenciar de 1".</p>
+<p>A implicação disso é profunda: embora matematicamente existam infinitos números entre <code>1</code> e <code>1 + ϵ</code>, para o computador esse intervalo é um "ponto cego". Ele não consegue representar nenhum valor ali. Para todos os efeitos, qualquer número nesse intervalo é simplesmente <code>1</code>. Esse 'ponto cego' existe por causa da limitação de bits na <strong>Mantissa</strong> que discutimos. Uma vez que o número é tão pequeno que sua adição não alteraria o último dígito disponível na mantissa, para o computador, nada mudou.</p>
+<p>Em Python, podemos descobri-lo assim:</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">sys</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">float_info</span><span class="o">.</span><span class="n">epsilon</span><span class="p">)</span>
+<span class="c1"># 2.220446049250313e-16</span>
+</code></pre></div>
+
+<p>Ou seja, o computador <strong>não consegue perceber diferenças menores que ε</strong>. Isso significa que, se somarmos 1 + 2.220446049250313 x 10^(-16), o computador ainda percebe a diferença. Mas se somarmos um número menor que isso, ele acha que é o mesmo número (1).</p>
+<div class="highlight"><pre><span></span><code><span class="mi">1</span> <span class="o">+</span> <span class="mf">1e-16</span> <span class="o">==</span> <span class="mi">1</span>  <span class="c1"># False</span>
+<span class="mi">1</span> <span class="o">+</span> <span class="mf">1e-17</span> <span class="o">==</span> <span class="mi">1</span>  <span class="c1"># True</span>
+</code></pre></div>
+
+<p><strong>Nota:</strong> Se estivermos usando uma máquina com 64 bits, temos que ϵ ≈ 2,22×10^(−16). O formato de ponto de flutuação de precisão dupla ocupa 64 bits da memória do computador e é muito mais preciso que o formato de precisão simples. Esse formato é geralmente chamado de FP64 e é usado para representar valores que exigem um intervalo maior ou um cálculo mais preciso. Embora a precisão dupla permita maior exatidão, ela também exige mais recursos computacionais, armazenamento de memória e transferência de dados.</p>
+<h3><strong>Ordem no caos: Como controlamos a imperfeição</strong></h3>
+<p>Antes do padrão IEEE 754, cada fabricante de computador representava números de forma diferente. Isso significava que <strong>a mesma conta poderia dar resultados diferentes em máquinas distintas</strong>.</p>
+<p>O IEEE 754 resolveu isso padronizando:</p>
+<ul>
+<li>A forma de armazenar números de ponto flutuante;</li>
+<li>As regras de arredondamento;</li>
+<li>O comportamento em situações especiais.</li>
+</ul>
+<p>Enquanto os erros de precisão são silenciosos e inerentes, existem outros erros, chamados de erros de execução, que são catastróficos e podem travar um programa. Para gerenciar esses eventos abruptos, os programadores usam ferramentas de controle como <code>try…except</code>. Os erros mais comuns são:</p>
+<ul>
+<li><strong>Overflow:</strong> O resultado de um cálculo é maior que o número máximo que o sistema pode representar.</li>
+<li><strong>Underflow:</strong> O resultado é tão próximo de zero que o sistema o aproxima para zero.</li>
+<li><strong>Divisão por zero:</strong> Uma operação matematicamente indefinida.</li>
+<li><strong>Número inválido (NaN - Not a Number):</strong> Ocorre como resultado de operações impossíveis, como <code>0/0</code> ou a raiz quadrada de um número negativo.</li>
+</ul>
+<p>Vejamos um exemplo clássico: tentar dividir um número por zero, uma operação matematicamente impossível. Para lidar com essas situações, os programadores usam estratégias como os blocos <code>try...except</code> em Python:</p>
+<div class="highlight"><pre><span></span><code><span class="n">x</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="n">y</span> <span class="o">=</span> <span class="mi">0</span>
+
+<span class="k">try</span><span class="p">:</span>
+  <span class="n">resultado</span> <span class="o">=</span> <span class="n">x</span> <span class="o">/</span> <span class="n">y</span>
+<span class="k">except</span> <span class="ne">ZeroDivisionError</span><span class="p">:</span>
+  <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Infelizmente ocorreu um erro. Não é possível realizar uma divisão por zero.&#39;</span><span class="p">)</span>
+
+<span class="c1"># O programa continua a execução normalmente.</span>
+</code></pre></div>
+
+<p>Em vez de travar, o programa executa o código dentro do bloco <code>except</code>, exibe a mensagem de erro de forma controlada e continua sua execução, demonstrando a robustez dessa abordagem.</p>
+<p><strong>Concluindo…</strong></p>
+<p>A precisão nos computadores é uma abstração poderosa, mas fundamentalmente uma aproximação do mundo infinito dos números reais. Cada cálculo, desde uma simples soma até simulações complexas, opera dentro desses limites.</p>
+<p>Felizmente, graças à <strong>norma IEEE 754</strong>, podemos confiar que <code>0.1 + 0.2</code> vai “errar” exatamente da mesma forma em qualquer computador do mundo!</p>	
+
+      
+      <h3 class="blogMeta">By <a href="#">Amanda Meneses</a>, Category: <a href="/category/computacao.html">Computação</a></h3>
+<h3 class="blogMeta">Tags: <span><a href="/tag/matematica.html">matemática</a> / </span>
+<span><a href="/tag/computacao.html">computação</a> / </span>
+</h3>    
+    </div><!-- end #blogItem -->
+  
+  </div><!-- end #mainContent -->
+
+<div class="clearfloat"></div>
+
+  <div id="footer">
+    <p>Proudly powered by <a href="http://getpelican.com">pelican</a>, which takes great advantages of <a href="http://python.org">python</a>.
+  </div><!-- end #footer -->
+
+</div><!-- end #container -->
+</body>
+</html>
