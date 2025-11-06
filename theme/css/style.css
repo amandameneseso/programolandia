@@ -13,7 +13,7 @@ dd { margin-left: 23px }
 } */
 
 body {
-    background-image: linear-gradient(rgba(255, 255, 255, 0.30), rgba(255, 255, 255, 0.8)),
+    background-image: linear-gradient(rgba(255, 255, 255, 0.30), rgba(255, 255, 255, 0)),
     url(../images/backgroundlacy.gif);
     
     color: #293331;
